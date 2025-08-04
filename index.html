@@ -1,36 +1,612 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me</title>
-    <link rel="stylesheet" href="webtests/styles.css">
+    <title>Catálogo de Animais Marinhos Ameaçados</title>
+    <style>
+        /* CSS Reset e Estilos Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Estilos do Cabeçalho */
+        header {
+            background: linear-gradient(135deg, #1e88e5, #0d47a1);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Seção de Filtros */
+        .filters {
+            background-color: #e3f2fd;
+            padding: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+        }
+
+        label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #0d47a1;
+        }
+
+        select, input {
+            padding: 0.5rem;
+            border: 1px solid #90caf9;
+            border-radius: 4px;
+            background-color: white;
+        }
+
+        /* Conteúdo Principal */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem;
+            background-color: #bbdefb;
+            border-radius: 4px;
+        }
+
+        .creature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Cartão do Animal */
+        .creature-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .creature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .creature-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .creature-info {
+            padding: 1.5rem;
+        }
+
+        .creature-name {
+            font-size: 1.5rem;
+            color: #0d47a1;
+            margin-bottom: 0.5rem;
+        }
+
+        .scientific-name {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .conservation-status {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .status-critically-endangered {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        .status-endangered {
+            background-color: #f57c00;
+            color: white;
+        }
+
+        .status-vulnerable {
+            background-color: #fbc02d;
+            color: #333;
+        }
+
+        .creature-details {
+            margin-top: 1rem;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #0d47a1;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        /* Ajustes Responsivos */
+        @media (max-width: 768px) {
+            .creature-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .filter-group {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class = "header">
-        <h1>
-            Frutiger Aero!!
-        </h1>
-    </div>
-    <div class="main">
-        <p>
-            16 year old autistic developer
-            who like to do a bit of everything.
-            My interests are instruments, music 
-            theory and technology, currently 
-            learning programming and making this 
-            website as an excuse to program :3
-        </p>
-        <p>
-            my favorite song at the moment is:
-        </p>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/hN8XncMtwAA?si=Y2il4aujM7oFHvb-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <header>
+        <h1>Animais Marinhos Ameaçados</h1>
+        <p class="subtitle">Um catálogo de espécies marinhas em risco</p>
+    </header>
+    <div class="container">
+        <div class="stats-bar">
+            <div>Total de Espécies: <span id="total-count">12</span></div>
+            <div>Criticamente em Perigo: <span id="ce-count">5</span></div>
+            <div>Em Perigo: <span id="e-count">4</span></div>
+            <div>Vulnerável: <span id="v-count">3</span></div>
+        </div>
 
+        <div class="creature-grid" id="creature-container">
+            <!-- Tartaruga-de-couro -->
+            <div class="creature-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/LeatherbackTurtle.jpg/1280px-LeatherbackTurtle.jpg" alt="Tartaruga-de-couro" class="creature-image">
+                <div class="creature-info">
+                    <a href="https://en.m.wikipedia.org/wiki/Leatherback_sea_turtle" class="creature-name">Tartaruga-de-couro</a>
+                    <p class="scientific-name">Dermochelys coriacea</p>
+                    <span class="conservation-status status-critically-endangered">Criticamente em Perigo</span>
+                    
+                    <div class="creature-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Impacto Ecológico:</span>
+                            <span>Controla populações de águas-vivas, mantendo o equilíbrio trófico.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Ameaças:</span>
+                            <span>Captura acidental em redes, ingestão de plástico, aquecimento global.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Habitat:</span>
+                            <span>Oceanos tropicais e temperados; põe ovos em praias tropicais.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Alimentação:</span>
+                            <span>Águas-vivas, tunicados, medusas.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Importância Genética:</span>
+                            <span>Estudos sobre adaptação metabólica em águas frias e migração oceânica de longa distância.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Toninha -->
+            <div class="creature-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Ecomare_-_bruinvis_Michael_in_2015_%28bruinvis-michael2015-9313-sw%29.jpg/1280px-Ecomare_-_bruinvis_Michael_in_2015_%28bruinvis-michael2015-9313-sw%29.jpg" alt="Toninha" class="creature-image">
+                <div class="creature-info">
+                    <a href="https://en.m.wikipedia.org/wiki/La_Plata_dolphin" class="creature-name">Toninha</a>
+                    <p class="scientific-name">Pontoporia blainvillei</p>
+                    <span class="conservation-status status-critically-endangered">Criticamente em Perigo</span>
+                    
+                    <div class="creature-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Impacto Ecológico:</span>
+                            <span>Regula populações de peixes pequenos e crustáceos nos estuários.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Ameaças:</span>
+                            <span>Captura acidental por redes de emalhe, poluição e tráfego marítimo.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Habitat:</span>
+                            <span>Estuários e zonas costeiras do Atlântico Sul ocidental (Brasil, Uruguai e Argentina).</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Alimentação:</span>
+                            <span>Peixes, lulas e camarões.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Importância Genética:</span>
+                            <span>Estudos de bioacústica e sistemas respiratórios de mamíferos aquáticos.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Boto-cor-de-rosa -->
+            <div class="creature-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Amazonas-Flussdelfin_Orinoko3.jpg/1024px-Amazonas-Flussdelfin_Orinoko3.jpg" alt="Boto-cor-de-rosa" class="creature-image">
+                <div class="creature-info">
+                <a href="https://en.m.wikipedia.org/wiki/Amazon_river_dolphin" class="creature-name">Boto-cor-de-rosa</a>
+                    <p class="scientific-name">Inia geoffrensis</p>
+                    <span class="conservation-status status-endangered">Em Perigo</span>
+                    
+                    <div class="creature-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Impacto Ecológico:</span>
+                            <span>Controla populações de peixes na bacia amazônica, regulando cadeias alimentares.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Ameaças:</span>
+                            <span>Construção de barragens, poluição por mercúrio, redes de pesca.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Habitat:</span>
+                            <span>Rios da Amazônia e seus afluentes.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Alimentação:</span>
+                            <span>Peixes, moluscos e pequenos crustáceos.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Importância Genética:</span>
+                            <span>Modelo em neurociência (cérebro de cetáceos) e comunicação sonar.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Peixe-boi-marinho -->
+            <div class="creature-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Manatee.jpg" alt="Peixe-boi-marinho" class="creature-image">
+                <div class="creature-info">
+                    <a href="https://en.m.wikipedia.org/wiki/West_Indian_manatee" class="creature-name">Peixe-boi-marinho</a>
+                    <p class="scientific-name">Trichechus manatus</p>
+                    <span class="conservation-status status-vulnerable">Vulnerável</span>
+                    
+                    <div class="creature-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Impacto Ecológico:</span>
+                            <span>Mantém o equilíbrio de vegetações aquáticas e qualidade da água.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Ameaças:</span>
+                            <span>Caça, atropelamento por embarcações, perda de habitat.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Habitat:</span>
+                            <span>Manguezais, estuários e águas costeiras quentes do Atlântico.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Alimentação:</span>
+                            <span>Fanerógamas e plantas aquáticas.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Importância Genética:</span>
+                            <span>Evolução dos mamíferos aquáticos herbívoros e longevidade celular.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Coral-cérebro-da-Bahia -->
+            <div class="creature-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Coral_c%C3%A9rebro_da_Bahia_MN_01.jpg/330px-Coral_c%C3%A9rebro_da_Bahia_MN_01.jpg" alt="Coral-cérebro-da-Bahia" class="creature-image">
+                <div class="creature-info">
+                    <a href="https://en.m.wikipedia.org/wiki/Mussismilia_braziliensis" class="creature-name">Coral-cérebro-da-Bahia</a>
+                    <p class="scientific-name">Mussismilia braziliensis</p>
+                    <span class="conservation-status status-endangered">Em Perigo</span>
+                    
+                    <div class="creature-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Impacto Ecológico:</span>
+                            <span>Forma recifes que abrigam milhares de espécies marinhas.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Ameaças:</span>
+                            <span>Aquecimento dos oceanos, acidificação, poluição e turismo não controlado.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Habitat:</span>
+                            <span>Recifes costeiros do Atlântico Sul, principalmente no Brasil.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Alimentação:</span>
+                            <span>Simbiose com algas (zooxantelas) e plâncton.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Importância Genética:</span>
+                            <span>Estudos sobre simbiose celular e envelhecimento marinho.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Coral-casca-de-jaca -->
+            <div class="creature-card">
+                <img src="https://cifonauta.cebimar.usp.br/media_files/uploads/21/5cb1c412-8959-47b9-b04a-68916181bc87_medium.jpg" alt="Coral-casca-de-jaca" class="creature-image">
+                <div class="creature-info">
+                    <a href="https://en.m.wikipedia.org/wiki/Montastraea_cavernosa" class="creature-name">Coral-casca-de-jaca</a>
+                    <p class="scientific-name">Montastraea cavernosa</p>
+                    <span class="conservation-status status-vulnerable">Vulnerável</span>
+                    
+                    <div class="creature-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Impacto Ecológico:</span>
+                            <span>Forma abrigos em recifes e atua como bioengenheiro do ecossistema.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Ameaças:</span>
+                            <span>Branqueamento coralino, aumento da temperatura dos oceanos.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Habitat:</span>
+                            <span>Recifes do Caribe e Atlântico tropical.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Alimentação:</span>
+                            <span>Algas simbióticas + plâncton por filtração.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Importância Genética:</span>
+                            <span>Pesquisas sobre resistência térmica e comunicação celular em simbiose.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vaquita-marinha -->
+            <div class="creature-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Vaquita2_Olson_NOAA.jpg" alt="Vaquita-marinha" class="creature-image">
+                <div class="creature-info">
+                    <a href="https://en.m.wikipedia.org/wiki/Vaquita" class="creature-name">Vaquita-marinha</a>
+                    <p class="scientific-name">Phocoena sinus</p>
+                    <span class="conservation-status status-critically-endangered">Criticamente em Perigo</span>
+                    
+                    <div class="creature-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Impacto Ecológico:</span>
+                            <span>Regula presas na cadeia alimentar do Golfo da Califórnia.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Ameaças:</span>
+                            <span>Captura acidental por redes ilegais (principalmente para pesca da totoaba).</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Habitat:</span>
+                            <span>Águas rasas do Golfo da Califórnia, México.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Alimentação:</span>
+                            <span>Peixes pequenos e lulas.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Importância Genética:</span>
+                            <span>Estudos sobre resistência genética à baixa diversidade e consanguinidade.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cavalo-marinho-do-pacífico -->
+            <div class="creature-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Hippocampus_ingens%2C_Monterey.jpg/1200px-Hippocampus_ingens%2C_Monterey.jpg" alt="Cavalo-marinho-do-pacífico" class="creature-image">
+                <div class="creature-info">
+                    <a href="https://en.m.wikipedia.org/wiki/Pacific_seahorse" class="creature-name">Cavalo-marinho-do-pacífico</a>
+                    <p class="scientific-name">Hippocampus ingens</p>
+                    <span class="conservation-status status-endangered">Em Perigo</span>
+                    
+                    <div class="creature-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Impacto Ecológico:</span>
+                            <span>Predador de pequenos invertebrados, controla zooplâncton.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Ameaças:</span>
+                            <span>Coleta para aquarismo e medicina tradicional, destruição de habitat.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Habitat:</span>
+                            <span>Recifes rochosos e manguezais do Pacífico oriental.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Alimentação:</span>
+                            <span>Crustáceos e zooplâncton.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Importância Genética:</span>
+                            <span>Estudos sobre reprodução masculina e hormônios sexuais.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tubarão-martelo-grande -->
+            <div class="creature-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Great_hammerhead2.jpg" alt="Tubarão-martelo-grande" class="creature-image">
+                <div class="creature-info">
+                    <a href="https://en.m.wikipedia.org/wiki/Great_hammerhead" class="creature-name">Tubarão-martelo-grande</a>
+                    <p class="scientific-name">Sphyrna mokarran</p>
+                    <span class="conservation-status status-critically-endangered">Criticamente em Perigo</span>
+                    
+                    <div class="creature-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Impacto Ecológico:</span>
+                            <span>Predador de topo que regula populações de presas.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Ameaças:</span>
+                            <span>Pesca para comércio de barbatanas, captura incidental.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Habitat:</span>
+                            <span>Oceanos tropicais e subtropicais, em recifes e alto-mar.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Alimentação:</span>
+                            <span>Peixes ósseos, raias, lulas.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Importância Genética:</span>
+                            <span>Pesquisas sobre sensibilidade eletromagnética e regeneração de tecidos.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dugongo -->
+            <div class="creature-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Dugong_Marsa_Alam.jpg/1024px-Dugong_Marsa_Alam.jpg" alt="Dugongo" class="creature-image">
+                <div class="creature-info">
+                <a href="https://en.m.wikipedia.org/wiki/Dugong" class="creature-name">Dugongo</a>
+                    <p class="scientific-name">Dugong dugon</p>
+                    <span class="conservation-status status-vulnerable">Vulnerável</span>
+                    
+                    <div class="creature-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Impacto Ecológico:</span>
+                            <span>Controla crescimento de pastos marinhos, mantém oxigenação e biodiversidade.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Ameaças:</span>
+                            <span>Caça, colisões com barcos, degradação do habitat.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Habitat:</span>
+                            <span>Costas rasas com vegetação marinha tropical (Índico e Pacífico ocidental).</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Alimentação:</span>
+                            <span>Fanerógamas marinhas.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Importância Genética:</span>
+                            <span>Estudos comparativos com peixe-boi sobre evolução marinha e digestão vegetal.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Peixe-napoleão -->
+            <div class="creature-card">
+                <img src="https://static.wixstatic.com/media/c4e423_8f810c6034164390a1c451ba59c5c0af~mv2.png" alt="Peixe-napoleão" class="creature-image">
+                <div class="creature-info">
+                    <a href="https://en.m.wikipedia.org/wiki/Humphead_wrasse" class="creature-name">Peixe-napoleão</a>
+                    <p class="scientific-name">Cheilinus undulatus</p>
+                    <span class="conservation-status status-endangered">Em Perigo</span>
+                    
+                    <div class="creature-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Impacto Ecológico:</span>
+                            <span>Regula populações de invertebrados como ouriços-do-mar.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Ameaças:</span>
+                            <span>Pesca excessiva para gastronomia e aquários de luxo.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Habitat:</span>
+                            <span>Recifes de coral do Indo-Pacífico.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Alimentação:</span>
+                            <span>Moluscos, crustáceos, ouriços.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Importância Genética:</span>
+                            <span>Estudos sobre crescimento tardio, dimorfismo sexual e regeneração.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Golfinho-de-Maui -->
+            <div class="creature-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Two_Maui%27s_dolphins.jpg" alt="Golfinho-de-Maui" class="creature-image">
+                <div class="creature-info">
+                    <a href="https://en.m.wikipedia.org/wiki/M%C4%81ui_dolphin" class="creature-name">Golfinho-de-Maui</a>
+                    <p class="scientific-name">Cephalorhynchus hectori maui</p>
+                    <span class="conservation-status status-critically-endangered">Criticamente em Perigo</span>
+                    
+                    <div class="creature-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Impacto Ecológico:</span>
+                            <span>Mantém o equilíbrio trófico costeiro da Nova Zelândia.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Ameaças:</span>
+                            <span>Captura em redes de pesca, poluição sonora e química.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Habitat:</span>
+                            <span>Costas rasas e frias do oeste da Nova Zelândia.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Alimentação:</span>
+                            <span>Peixes pequenos, lulas e cefalópodes.</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Importância Genética:</span>
+                            <span>Pesquisas sobre isolamento populacional e adaptação genética a águas frias.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="aquabutton">
-        <button>
-            FRUTIGER
-        </button>
-    </div>
+
+    <footer>
+        <p>Dados obtidos da Lista Vermelha da IUCN | © 2023 Catálogo de Conservação Marinha</p>
+    </footer>
+
+    <!-- JavaScript será adicionado aqui depois -->
+    <script>src="index.js"</script>
 </body>
 </html>
